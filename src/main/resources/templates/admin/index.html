@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+</head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+<body>
+<h2>All users</h2>
+<br>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Operation</th>
+    </tr>
+    <tbody>
+    <tr th:each="usr : ${allUsers}">
+        <td th:text="${usr.id}"></td>
+        <td th:text="${usr.username}"></td>
+        <td th:text="${usr.name}"></td>
+        <td th:text="${usr.surname}"></td>
+        <td th:text="${usr.email}"></td>
+        <td th:text="${usr.password}"></td>
+        <td style="display:flex">
+            <form th:method="GET" th:action="@{/admin/updateInfo/{id}(id=${usr.getId()})}">
+                <input type="submit" value="Update"/>
+            </form>
+            <form th:method="POST" th:action="@{/admin/deleteUser/{id}(id=${usr.getId()})}">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<input type="button" value="Add" onclick="window.location.href = 'admin/addNewUser' "/>
+<br>
+<br>
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+</html>
