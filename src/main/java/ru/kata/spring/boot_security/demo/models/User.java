@@ -54,6 +54,16 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+
+
+    public String getRolesString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Role role : roles) {
+            stringBuilder.append(role).append(" ");
+        }
+        return stringBuilder.toString();
+    }
+
     public Long getId() {
         return id;
     }

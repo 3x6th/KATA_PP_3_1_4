@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,11 +33,12 @@ public class AdminController {
     }
 
     @GetMapping
-    public String adminPage(Model model) {
+    public String adminPage(Model model, @AuthenticationPrincipal User user) {
         List<User> allUsers = userService.listUsers();
         List<Role> allRoles = roleService.listRoles();
         model.addAttribute("allUsers", allUsers);
         model.addAttribute("allRole", allRoles);
+        model.addAttribute("user", user);
         return "admin/index";
     }
 
