@@ -27,7 +27,7 @@ public class User implements UserDetails {
     @Column
     private String surname;
     @Column
-    private String age;
+    private Byte age;
     @Column
     private String email;
     @Column
@@ -93,11 +93,11 @@ public class User implements UserDetails {
         this.surname = surname;
     }
 
-    public String getAge() {
+    public Byte getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Byte age) {
         this.age = age;
     }
 

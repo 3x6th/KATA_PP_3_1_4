@@ -176,7 +176,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Edit
+                        <h5 class="modal-title" id="deleteModalLabel">Delete
                             user</h5>
                         <button type="button" class="close" data-dismiss="modal"
                                 aria-label="Close">
@@ -200,16 +200,25 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="delFirstname"
-                                               class="col-form-label">Логин
+                                               class="col-form-label">First Name
                                         </label>
                                         <input type="text" class="form-control"
-                                               id="delFirstname"
-                                               th:value="${usr.username}"
+                                               id="delFirstName"
+                                               th:value="${usr.name}"
+                                               name="username" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="delFirstname"
+                                               class="col-form-label">Last Name
+                                        </label>
+                                        <input type="text" class="form-control"
+                                               id="delSecondName"
+                                               th:value="${usr.surname}"
                                                name="username" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="delAge"
-                                               class="col-form-label">Возраст
+                                               class="col-form-label">Age
                                         </label>
                                         <input type="number" class="form-control"
                                                id="delAge"
@@ -218,7 +227,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="delEmail"
-                                               class="col-form-label">Электронная почта
+                                               class="col-form-label">Email
                                         </label>
                                         <input type="text" class="form-control"
                                                id="delEmail"
@@ -226,8 +235,17 @@
                                                name="email" readonly>
                                     </div>
                                     <div class="form-group">
+                                        <label for="delEmail"
+                                               class="col-form-label">Password
+                                        </label>
+                                        <input type="text" class="form-control"
+                                               id="delPassword"
+                                               th:value="${usr.password}"
+                                               name="email" readonly>
+                                    </div>
+                                    <div class="form-group">
                                         <strong><label
-                                                for="delRole">Роль</label></strong>
+                                                for="delRole">Role</label></strong>
                                         <select multiple
                                                 class="custom-select w-100"
                                                 size="2" id="delRole"
