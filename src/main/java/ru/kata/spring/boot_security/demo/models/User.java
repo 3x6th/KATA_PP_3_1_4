@@ -27,6 +27,8 @@ public class User implements UserDetails {
     @Column
     private String surname;
     @Column
+    private String age;
+    @Column
     private String email;
     @Column
     private String password;
@@ -38,9 +40,9 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN) // посмотреть
-    @JoinTable(name="user_roles",
-            joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public void addRoles(Collection<Role> roleCollection) {
@@ -53,7 +55,6 @@ public class User implements UserDetails {
         this.password = password;
         this.roles = roles;
     }
-
 
 
     public String getRolesString() {
@@ -90,6 +91,14 @@ public class User implements UserDetails {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public String getEmail() {

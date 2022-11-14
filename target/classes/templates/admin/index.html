@@ -32,26 +32,29 @@
 
 <h2>All users</h2>
 <br>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Edit</th>
-        <th>Delete</th>
 
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
     </tr>
+    </thead>
     <tbody>
     <tr th:each="usr : ${allUsers}">
         <td th:text="${usr.id}"></td>
-        <td th:text="${usr.username}"></td>
         <td th:text="${usr.name}"></td>
         <td th:text="${usr.surname}"></td>
+        <td th:text="${usr.age}"></td>
         <td th:text="${usr.email}"></td>
-        <td th:text="${usr.password}"></td>
+        <td th:text="${usr.getRoles()}"></td>
+
         <td>
             <button type="button" class="btn btn-info" style="color: white"
                     data-toggle="modal" th:data-target="${'#edit' + usr.id}">
@@ -100,37 +103,45 @@
                                                name="id">
                                     </div>
                                     <div class="form-group">
-                                        <label for="username"
-                                               class="col-form-label">Логин</label>
+                                        <label for="name"
+                                               class="col-form-label">First Name</label>
                                         <input type="text" class="form-control"
-                                               id="username"
-                                               th:value="${usr.username}"
+                                               id="name"
+                                               th:value="${usr.name}"
                                                name="username">
                                     </div>
                                     <div class="form-group">
-                                        <label for="edPassword"
-                                               class="col-form-label">Пароль</label>
+                                        <label for="surname"
+                                               class="col-form-label">Last Name</label>
                                         <input type="text" class="form-control"
-                                               id="edPassword" name="password"
-                                               th:value="${usr.password}">
+                                               id="surname"
+                                               th:value="${usr.surname}"
+                                               name="username">
                                     </div>
-                                    <!--                            <div class="form-group">-->
-                                    <!--                                <label for="edAge"-->
-                                    <!--                                       class="col-form-label">Возраст</label>-->
-                                    <!--                                <input type="number" class="form-control"-->
-                                    <!--                                       id="edAge" name="age"-->
-                                    <!--                                       th:value="${user.age}">-->
-                                    <!--                            </div>-->
+                                    <div class="form-group">
+                                        <label for="edAge"
+                                               class="col-form-label">Age</label>
+                                        <input type="number" class="form-control"
+                                               id="edAge" name="age"
+                                               th:value="${usr.age}">
+                                    </div>
                                     <div class="form-group">
                                         <label for="edEmail"
-                                               class="col-form-label">Электронная почта</label>
+                                               class="col-form-label">Email</label>
                                         <input type="text" class="form-control"
                                                id="edEmail" name="email"
                                                th:value="${usr.email}">
                                     </div>
                                     <div class="form-group">
+                                        <label for="edPassword"
+                                               class="col-form-label">Password</label>
+                                        <input type="text" class="form-control"
+                                               id="edPassword" name="password"
+                                               th:value="${usr.password}">
+                                    </div>
+                                    <div class="form-group">
                                         <strong><label
-                                                for="editRole">Роль</label></strong>
+                                                for="editRole">Role</label></strong>
                                         <select multiple
                                                 class="custom-select w-100"
                                                 size="2" id="editRole"
@@ -176,7 +187,8 @@
                         <form style="text-align: center; font-weight:bold"
                               th:action="@{/admin/deleteUser/{id}(id=${usr.getId()})}"
                               th:object="${usr}" th:method="POST">
-                            <div class="form-group col-8 container-sm bg-white justify-content-center" style="justify-content: center">
+                            <div class="form-group col-8 container-sm bg-white justify-content-center"
+                                 style="justify-content: center">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="delitId"
@@ -195,15 +207,15 @@
                                                th:value="${usr.username}"
                                                name="username" readonly>
                                     </div>
-<!--                                    <div class="form-group">-->
-<!--                                        <label for="delAge"-->
-<!--                                               class="col-form-label">Возраст-->
-<!--                                        </label>-->
-<!--                                        <input type="number" class="form-control"-->
-<!--                                               id="delAge"-->
-<!--                                               th:value="${user.age}"-->
-<!--                                               name="age" readonly>-->
-<!--                                    </div>-->
+                                    <div class="form-group">
+                                        <label for="delAge"
+                                               class="col-form-label">Возраст
+                                        </label>
+                                        <input type="number" class="form-control"
+                                               id="delAge"
+                                               th:value="${usr.age}"
+                                               name="age" readonly>
+                                    </div>
                                     <div class="form-group">
                                         <label for="delEmail"
                                                class="col-form-label">Электронная почта
