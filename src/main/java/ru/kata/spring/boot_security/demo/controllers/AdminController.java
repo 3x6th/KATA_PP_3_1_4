@@ -13,6 +13,7 @@ import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -53,10 +54,9 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/edit/{id}")
+    @PostMapping(value = "/edit/{id}")
     public String updateUser(ModelMap model, @PathVariable int id, @ModelAttribute("user") User user) {
-//        model.addAttribute("user", userService.getUserByID(id));
-//        model.addAttribute("listRoles", roleService.listRoles());
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.update(user);
         return "redirect:/admin";
