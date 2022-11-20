@@ -42,12 +42,6 @@ public class AdminController {
         return "admin/index";
     }
 
-    @GetMapping(value = "/addNewUser")
-    public String addNewUser(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("listRoles", roleService.listRoles());
-        return "admin/user-info";
-    }
-
     @PostMapping(value = "/saveUser")
     public String saveUser(@ModelAttribute("new_user") User new_user) {
         List<User> allUsers = userService.listUsers();
@@ -60,8 +54,12 @@ public class AdminController {
 
     @PostMapping(value = "/edit/{id}")
     public String updateUser(ModelMap model, @PathVariable int id, @ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.update(user);
+        if (user.getPassword() == null) {
+            userService.update(user);
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userService.update(user);
+        }
         return "redirect:/admin";
     }
 

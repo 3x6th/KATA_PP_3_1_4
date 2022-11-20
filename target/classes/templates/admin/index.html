@@ -119,12 +119,11 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <form style="text-align: center; font-weight:bold"
-                                                          th:action="@{/admin/edit/{id}(id=${usr.getId()})}"
+                                                <div class="modal-body text-center font-weight-bold">
+                                                    <form th:action="@{/admin/edit/{id}(id=${usr.getId()})}"
                                                           th:object="${usr}" th:method="POST">
-                                                        <div class="form-group col-8 container-sm bg-white justify-content-center">
-                                                            <div class="modal-body">
+                                                        <div class="form-group container-fluid col-md-8 bg-white text-center">
+                                                            <div class="modal-body text-center">
                                                                 <div class="form-group">
                                                                     <label for="edId"
                                                                            class="col-form-label">ID</label>
@@ -172,22 +171,20 @@
                                                                            th:value="${usr.password}">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <strong><label
-                                                                            for="role">Role</label></strong>
+                                                                    <label for="role">Role</label>
                                                                     <select multiple
                                                                             class="form-control"
                                                                             size="2" id="role"
                                                                             name="role" th:field="${user.roles}">
                                                                         <option th:each="role: ${allRoles}"
                                                                                 th:value="${role.id}"
-                                                                                th:selected="${usr.roles}">
+                                                                                th:selected="${usr.getRolesString()}">
                                                                             <th:block
                                                                                     th:text="${role.toString()}">
                                                                             </th:block>
                                                                         </option>
                                                                     </select>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -205,8 +202,7 @@
 
                                     <!--        Modal window DELETE-->
                                     <div class="modal" th:id="${'delete' + usr.id}" tabindex="-1"
-                                         aria-labelledby="deleteModalLabel" aria-hidden="true"
-                                         style="justify-content: center">
+                                         aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -218,12 +214,10 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body" style="justify-content: center">
-                                                    <form style="text-align: center; font-weight:bold"
-                                                          th:action="@{/admin/deleteUser/{id}(id=${usr.getId()})}"
+                                                    <form th:action="@{/admin/deleteUser/{id}(id=${usr.getId()})}"
                                                           th:object="${usr}" th:method="POST">
-                                                        <div class="form-group col-8 container-sm bg-white justify-content-center"
-                                                             style="justify-content: center">
-                                                            <div class="modal-body">
+                                                        <div class="form-group container-fluid col-md-8 bg-white text-center">
+                                                            <div class="modal-body text-center font-weight-bold">
                                                                 <div class="form-group">
                                                                     <label for="delitId"
                                                                            class="col-form-label">ID</label>
@@ -272,13 +266,16 @@
                                                                     <strong><label
                                                                             for="delRole">Role</label></strong>
                                                                     <select multiple
-                                                                            class="custom-select w-100"
+                                                                            class="form-control"
                                                                             size="2" id="delRole"
-                                                                            name="role" disabled>
-                                                                        <option
-                                                                                th:each="role : ${allRoles}"
-                                                                                th:text="${role.getName()}"
-                                                                                th:value="${role.id}">
+                                                                            name="role" disabled
+                                                                            th:field="${user.roles}">
+                                                                        <option th:each="role: ${allRoles}"
+                                                                                th:value="${role.id}"
+                                                                                th:selected="${usr.getRoles()}">
+                                                                            <th:block
+                                                                                    th:text="${role.toString()}">
+                                                                            </th:block>
                                                                         </option>
                                                                     </select>
                                                                 </div>
@@ -303,7 +300,7 @@
 
                         </div>
                     </div>
-                    <!--Add New-->
+                    <!--Add New User-->
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="card">
                             <div class="bg-white p-2 pl-4 font-weight-bold"><h5>Add new user</h5></div>
@@ -389,13 +386,6 @@
     </div>
 
 </div>
-
-
-<br>
-<input type="button" value="Add" onclick="window.location.href = 'admin/addNewUser' "/>
-<br>
-<br>
-
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
