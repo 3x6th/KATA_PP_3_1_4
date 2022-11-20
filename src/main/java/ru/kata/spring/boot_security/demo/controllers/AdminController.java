@@ -32,12 +32,13 @@ public class AdminController {
     }
 
     @GetMapping
-    public String adminPage(Model model, @AuthenticationPrincipal User user) {
+    public String adminPage(Model model, @AuthenticationPrincipal User user, @ModelAttribute("new_user") User new_user) {
         List<User> allUsers = userService.listUsers();
         List<Role> allRoles = roleService.listRoles();
         model.addAttribute("allUsers", allUsers);
         model.addAttribute("allRoles", allRoles);
         model.addAttribute("user", user);
+        model.addAttribute("new_user", new_user);
         return "admin/index";
     }
 
@@ -48,15 +49,17 @@ public class AdminController {
     }
 
     @PostMapping(value = "/saveUser")
-    public String saveUser(@ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.update(user);
+    public String saveUser(@ModelAttribute("new_user") User new_user) {
+        List<User> allUsers = userService.listUsers();
+        new_user.setPassword(passwordEncoder.encode(new_user.getPassword()));
+        if (!allUsers.contains(new_user)) {
+            userService.add(new_user);
+        }
         return "redirect:/admin";
     }
 
     @PostMapping(value = "/edit/{id}")
     public String updateUser(ModelMap model, @PathVariable int id, @ModelAttribute("user") User user) {
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.update(user);
         return "redirect:/admin";

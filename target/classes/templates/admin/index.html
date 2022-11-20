@@ -63,7 +63,7 @@
                            aria-controls="nav-profile" aria-selected="false">New User</a>
                     </div>
                 </nav>
-                <!--Tables card-->
+                <!--Tables cards-->
                 <div class="tab-content" id="nav-tabContent">
                     <!--Users-->
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
@@ -175,19 +175,14 @@
                                                                     <strong><label
                                                                             for="role">Role</label></strong>
                                                                     <select multiple
-                                                                            class="custom-select w-100"
+                                                                            class="form-control"
                                                                             size="2" id="role"
-                                                                            name="role">
-<!--                                                                        <option-->
-<!--                                                                                th:each="role : ${allRoles}"-->
-<!--                                                                                th:text="${role.getName()}"-->
-<!--                                                                                th:value="${role.id}">-->
-<!--                                                                        </option>-->
+                                                                            name="role" th:field="${user.roles}">
                                                                         <option th:each="role: ${allRoles}"
                                                                                 th:value="${role.id}"
                                                                                 th:selected="${usr.roles}">
                                                                             <th:block
-                                                                                    th:text="${role.name}">
+                                                                                    th:text="${role.toString()}">
                                                                             </th:block>
                                                                         </option>
                                                                     </select>
@@ -207,7 +202,6 @@
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <!--        Modal window DELETE-->
                                     <div class="modal" th:id="${'delete' + usr.id}" tabindex="-1"
@@ -275,15 +269,6 @@
                                                                            name="email" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="delEmail"
-                                                                           class="col-form-label">Password
-                                                                    </label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="delPassword"
-                                                                           th:value="${usr.password}"
-                                                                           name="email" readonly>
-                                                                </div>
-                                                                <div class="form-group">
                                                                     <strong><label
                                                                             for="delRole">Role</label></strong>
                                                                     <select multiple
@@ -325,14 +310,43 @@
 
 
                             <div class="text-center  font-weight-bold">
-                                <form class="offset-md-4 col-md-3 mt-4 mb-4">
+                                <form th:action="@{/admin/saveUser}" th:object="${new_user}" method="post"
+                                      class="offset-md-4 col-md-3 mt-4 mb-4">
                                     <div class="form-group">
-
-                                        <label for="emailInput">Email address</label>
-                                        <input type="email" class="form-control" id="emailInput"
+                                        <label th:for="name">First Name</label>
+                                        <input type="text" class="form-control" th:id="name" th:field="*{name}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label th:for="surname">Last Name</label>
+                                        <input type="text" class="form-control" th:id="surname" th:field="*{surname}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label th:for="age">Age</label>
+                                        <input type="number" class="form-control" th:id="age" th:field="*{age}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label th:for="email">Email address</label>
+                                        <input type="email" class="form-control" th:id="email" th:field="*{email}"
                                                placeholder="name@example.com">
                                     </div>
-                                    <button type="button" class="btn btn-success">Add new user</button>
+                                    <div class="form-group">
+                                        <label th:for="password">Password</label>
+                                        <input type="password" class="form-control" th:id="password"
+                                               th:field="*{password}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="roles">Roles</label>
+                                        <select class="form-control" id="roles" multiple size="2" th:field="*{roles}">
+                                            <option th:each="role: ${allRoles}"
+                                                    th:value="${role.getId()}"
+                                                    th:selected="${user.getRoles()}">
+                                                <th:block
+                                                        th:text="${role.toString()}">
+                                                </th:block>
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <button th:type="submit" class="btn btn-success">Add new user</button>
                                 </form>
                             </div>
                         </div>
