@@ -37,8 +37,8 @@ public class ApplicationRunnerImp implements ApplicationRunner {
             Set<Role> userRole = new HashSet<>();
             adminRole.add(admin);
             userRole.add(user);
-            userService.add(new User( "admin", passwordEncoder.encode("admin"), adminRole ));
-            userService.add(new User( "user", passwordEncoder.encode("user"), userRole ));
+            userService.add(new User( "admin@mail.ru", passwordEncoder.encode("admin"), adminRole ));
+            userService.add(new User( "user@mail.ru", passwordEncoder.encode("user"), userRole ));
         }
     }
 }
